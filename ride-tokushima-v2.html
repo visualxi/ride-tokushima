@@ -1,0 +1,2386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ride Tokushima — Cycling Events &amp; Guided Tours</title>
+  <meta
+    name="description"
+    content="Road, gravel, social, and guided cycling rides in Tokushima, Japan. Naruto, Yoshino River, Iya Valley, Anan Coast, Kamikatsu — Shikoku's undiscovered cycling prefecture."
+  />
+
+  <style>
+    :root {
+      /* Awa Indigo palette — Tokushima's core heritage color */
+      --paper: #f2efe8;
+      --paper-soft: #f9f7f2;
+      --ink: #14140f;
+      --muted: #5e5b54;
+      --line: rgba(20, 20, 15, 0.13);
+      --line-strong: rgba(20, 20, 15, 0.22);
+
+      /* Awa Indigo spectrum: lightest → deepest */
+      --indigo-1: #dce8f0;  /* Hanada — sky indigo */
+      --indigo-2: #7daec8;  /* Asagi — pale blue-green */
+      --indigo-3: #3278a0;  /* Hanada deeper */
+      --indigo-4: #1a4a6e;  /* Kon — deep indigo */
+      --indigo-5: #0d2540;  /* Awa Blue — deepest */
+      --indigo-glow: rgba(50, 120, 160, 0.22);
+
+      /* Accents */
+      --warm: #c8622a;      /* terracotta / warm signal */
+      --moss: #4a7c59;      /* mountain green */
+      --danger: #c93b2e;
+      --success: #1f7a43;
+      --focus: #1a4a6e;
+      --shadow: 0 24px 70px rgba(14, 20, 30, 0.14);
+      --radius: 16px;
+      --max: 1440px;
+      --base-font-size: 16px;
+      --mobile-nav-height: 72px;
+    }
+
+    body.a11y-contrast {
+      --paper: #ffffff;
+      --paper-soft: #ffffff;
+      --ink: #000000;
+      --muted: #1a1a1a;
+      --line: rgba(0,0,0,0.35);
+      --line-strong: rgba(0,0,0,0.7);
+      --indigo-4: #0033aa;
+      --indigo-5: #001166;
+      --focus: #ffbf00;
+    }
+
+    body.a11y-large-text { --base-font-size: 18px; }
+
+    body.a11y-reduced-motion *,
+    body.a11y-reduced-motion *::before,
+    body.a11y-reduced-motion *::after {
+      scroll-behavior: auto !important;
+      transition: none !important;
+      animation: none !important;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: var(--base-font-size);
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    button, a, input, select, textarea { touch-action: manipulation; }
+
+    :focus-visible {
+      outline: 4px solid var(--focus);
+      outline-offset: 4px;
+      border-radius: 10px;
+    }
+
+    .skip-link {
+      position: fixed; left: 16px; top: 16px; z-index: 1000;
+      transform: translateY(-150%);
+      padding: 12px 16px; border-radius: 999px;
+      background: var(--focus); color: #fff; font-weight: 800;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    /* ── ANNOUNCEMENT ── */
+    .announcement {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background: var(--indigo-5);
+      color: rgba(255,255,255,0.92);
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .announcement strong { color: var(--indigo-1); }
+    body.a11y-contrast .announcement { background: #000; color: #fff; }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: sticky; top: 0; z-index: 20;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+      padding: 18px clamp(18px, 4vw, 54px);
+      border-bottom: 1px solid var(--line);
+      background: rgba(242, 239, 232, 0.9);
+      backdrop-filter: blur(20px);
+    }
+    body.a11y-contrast .site-header { background: #fff; }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: var(--indigo-5);
+      flex-shrink: 0;
+    }
+    .brand-mark svg { width: 16px; height: 16px; }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(14px, 2.5vw, 36px);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .main-nav a:hover { color: var(--ink); text-decoration: none; }
+    .main-nav a.nav-cta {
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--indigo-5);
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .main-nav a.nav-cta:hover { background: var(--indigo-4); }
+
+    .header-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .ghost-btn, .solid-btn, .danger-btn, .chip, .card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+
+    .ghost-btn, .solid-btn, .danger-btn {
+      padding: 0 16px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .solid-btn {
+      border-color: var(--indigo-5);
+      background: var(--indigo-5);
+      color: #fff;
+    }
+    .danger-btn { border-color: var(--danger); background: var(--danger); color: #fff; }
+
+    .ghost-btn:hover, .solid-btn:hover, .danger-btn:hover, .chip:hover, .card-btn:hover {
+      transform: translateY(-1px); text-decoration: none;
+    }
+    .solid-btn:hover { background: var(--indigo-4); border-color: var(--indigo-4); }
+
+    /* ── PAGE WRAPPER ── */
+    .page { max-width: var(--max); margin: 0 auto; }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      min-height: 80vh;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(36px, 6vw, 90px);
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .eyebrow.indigo { color: var(--indigo-3); }
+
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(62px, 10.5vw, 160px);
+      line-height: 0.84;
+      letter-spacing: -0.09em;
+    }
+
+    .hero-copy p {
+      max-width: 600px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.8vw, 22px);
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .hero-panel {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      min-height: 520px;
+      padding: clamp(22px, 4vw, 54px);
+      overflow: hidden;
+      /* Awa Indigo depth gradient */
+      background:
+        radial-gradient(ellipse at 28% 22%, rgba(50,120,160,0.9), transparent 32%),
+        radial-gradient(ellipse at 78% 18%, rgba(26,74,110,0.6), transparent 28%),
+        linear-gradient(155deg, #0d2540, #1a4a6e 52%, #0a1520);
+      color: var(--paper-soft);
+    }
+    body.a11y-contrast .hero-panel { background: #000; color: #fff; }
+
+    /* Subtle geometric — indigo textile motif */
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: 7%;
+      border: 1px solid rgba(220, 232, 240, 0.14);
+      border-radius: 50%;
+      transform: rotate(-12deg) scaleX(0.9);
+    }
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      width: 68%; height: 68%;
+      right: -16%; top: 8%;
+      border: 40px solid rgba(125, 174, 200, 0.07);
+      border-radius: 50%;
+    }
+
+    .route-badge {
+      position: relative; z-index: 1;
+      width: min(100%, 460px);
+      padding: 22px;
+      border: 1px solid rgba(220, 232, 240, 0.18);
+      border-radius: var(--radius);
+      background: rgba(8, 16, 26, 0.42);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+    }
+    .route-badge h2 {
+      margin: 0 0 18px;
+      font-size: clamp(26px, 3.8vw, 50px);
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+    }
+    .route-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .route-stats div {
+      padding-top: 12px;
+      border-top: 1px solid rgba(220, 232, 240, 0.2);
+    }
+    .route-stats strong {
+      display: block;
+      font-size: 20px;
+      letter-spacing: -0.04em;
+    }
+    .route-stats span { color: rgba(220, 232, 240, 0.75); font-size: 11px; }
+
+    /* ── GUIDE CREDENTIALS STRIP ── */
+    .credentials-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      border-bottom: 1px solid var(--line);
+      background: var(--indigo-5);
+      color: rgba(255,255,255,0.88);
+      overflow: hidden;
+    }
+    body.a11y-contrast .credentials-strip { background: #111; }
+
+    .cred-item {
+      flex: 1;
+      min-width: 200px;
+      padding: 22px clamp(18px, 3vw, 40px);
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .cred-item:last-child { border-right: 0; }
+    .cred-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--indigo-2);
+    }
+    .cred-value {
+      font-size: clamp(17px, 2vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: #fff;
+    }
+    .cred-value small {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(220,232,240,0.7);
+      margin-top: 2px;
+    }
+
+    /* ── CONTROLS ── */
+    .controls {
+      display: grid;
+      gap: 20px;
+      padding: 28px clamp(18px, 4vw, 54px);
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-soft);
+    }
+
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .control-label {
+      min-width: 96px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .chip {
+      min-height: 38px;
+      padding: 0 14px;
+      font-size: 13px;
+      color: var(--muted);
+      background: rgba(20, 20, 15, 0.04);
+      white-space: nowrap;
+    }
+    .chip.is-active {
+      border-color: var(--indigo-5);
+      background: var(--indigo-5);
+      color: #fff;
+    }
+
+    .search-wrap {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) auto;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .search-wrap input {
+      width: 100%;
+      min-height: 48px;
+      padding: 0 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--ink);
+      outline: none;
+    }
+    .search-wrap input:focus { border-color: var(--indigo-3); }
+
+    /* ── RIDES GRID ── */
+    .rides {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.32fr) 1fr;
+      gap: clamp(22px, 4vw, 64px);
+      padding: clamp(30px, 5vw, 70px) clamp(18px, 4vw, 54px) 80px;
+    }
+
+    .rides-aside {
+      position: sticky;
+      top: 110px;
+      align-self: start;
+    }
+
+    .rides-count {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 0 0 28px;
+      font-size: clamp(38px, 6.5vw, 90px);
+      line-height: 0.9;
+      letter-spacing: -0.08em;
+    }
+    .rides-count span { color: var(--muted); font-size: 16px; letter-spacing: -0.02em; }
+
+    .aside-note {
+      max-width: 280px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    /* Aside quick-links */
+    .aside-links {
+      margin-top: 28px;
+      display: grid;
+      gap: 8px;
+    }
+    .aside-link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--paper-soft);
+      font-size: 13px;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 150ms ease, border-color 150ms ease;
+    }
+    .aside-link-item:hover { background: var(--indigo-1); border-color: var(--indigo-3); text-decoration: none; }
+    .aside-link-item span { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .week { display: grid; gap: 14px; margin-bottom: 42px; }
+    .week-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .week-header h2 {
+      margin: 0;
+      font-size: clamp(26px, 3.8vw, 54px);
+      line-height: 0.9;
+      letter-spacing: -0.07em;
+    }
+    .week-header span {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    .event-card {
+      display: grid;
+      grid-template-columns: 118px 1fr auto;
+      gap: clamp(16px, 3vw, 34px);
+      align-items: center;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .date-box { display: grid; gap: 4px; }
+    .date-box .day { font-size: 44px; line-height: 0.9; letter-spacing: -0.08em; }
+    .date-box .month {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .event-main { min-width: 0; }
+    .event-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .pill.hot {
+      border-color: rgba(50,120,160,0.3);
+      background: var(--indigo-1);
+      color: var(--indigo-4);
+    }
+    .pill.gravel {
+      border-color: rgba(74,124,89,0.3);
+      background: rgba(74,124,89,0.1);
+      color: var(--moss);
+    }
+    .pill.guided {
+      border-color: rgba(200,98,42,0.3);
+      background: rgba(200,98,42,0.08);
+      color: var(--warm);
+    }
+    body.a11y-contrast .pill.hot { color: #000; border-color: #000; }
+
+    .event-title {
+      margin: 0 0 8px;
+      font-size: clamp(22px, 2.8vw, 40px);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+    }
+
+    .event-location, .event-desc {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .event-desc { max-width: 720px; margin-top: 8px; font-size: 14px; }
+
+    .event-numbers {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(80px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .event-numbers div { padding-top: 10px; border-top: 1px solid var(--line); }
+    .event-numbers strong { display: block; font-size: 17px; letter-spacing: -0.04em; }
+    .event-numbers span { color: var(--muted); font-size: 11px; }
+
+    .event-actions { display: grid; gap: 10px; min-width: 140px; }
+
+    .card-btn {
+      min-height: 44px;
+      padding: 0 16px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .card-btn.primary {
+      border-color: var(--indigo-5);
+      background: var(--indigo-5);
+      color: #fff;
+    }
+    .card-btn.primary:hover { background: var(--indigo-4); border-color: var(--indigo-4); }
+
+    .empty-state {
+      display: none;
+      padding: 70px 20px;
+      border: 1px dashed var(--line-strong);
+      border-radius: var(--radius);
+      text-align: center;
+      color: var(--muted);
+      background: rgba(249,247,242,0.46);
+    }
+    .empty-state.is-visible { display: block; }
+
+    /* ── ONARUTO BRIDGE TEASER ── */
+    .bridge-teaser {
+      padding: clamp(44px, 7vw, 96px) clamp(18px, 4vw, 54px);
+      background: linear-gradient(160deg, var(--indigo-4) 0%, var(--indigo-5) 100%);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    body.a11y-contrast .bridge-teaser { background: #000; }
+
+    .bridge-teaser::before {
+      content: "";
+      position: absolute;
+      width: 600px; height: 600px;
+      right: -150px; top: -180px;
+      border: 80px solid rgba(125,174,200,0.08);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .bridge-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: clamp(24px, 5vw, 80px);
+      align-items: end;
+    }
+    .bridge-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border: 1px solid rgba(125,174,200,0.4);
+      border-radius: 999px;
+      background: rgba(125,174,200,0.1);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--indigo-1);
+      margin-bottom: 18px;
+    }
+    .bridge-label::before {
+      content: "";
+      width: 6px; height: 6px;
+      background: var(--indigo-2);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .bridge-title {
+      margin: 0;
+      font-size: clamp(40px, 7vw, 108px);
+      line-height: 0.86;
+      letter-spacing: -0.08em;
+      color: #fff;
+    }
+    .bridge-sub {
+      margin: 16px 0 0;
+      max-width: 560px;
+      color: rgba(220,232,240,0.8);
+      line-height: 1.5;
+      font-size: clamp(15px, 1.6vw, 18px);
+    }
+    .bridge-countdown {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      min-width: 200px;
+    }
+    .bridge-stat {
+      padding: 18px;
+      border: 1px solid rgba(125,174,200,0.22);
+      border-radius: var(--radius);
+      background: rgba(8,16,26,0.4);
+      text-align: center;
+    }
+    .bridge-stat strong {
+      display: block;
+      font-size: clamp(28px, 4vw, 52px);
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+      color: var(--indigo-1);
+    }
+    .bridge-stat span { font-size: 11px; color: rgba(220,232,240,0.65); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ── ROUTE NOTES ── */
+    .route-notes {
+      padding: clamp(44px, 6vw, 90px) clamp(18px, 4vw, 54px);
+      background: var(--ink);
+      color: var(--paper-soft);
+    }
+    body.a11y-contrast .route-notes { background: #000; color: #fff; }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .section-head h2 {
+      max-width: 780px;
+      margin: 0;
+      font-size: clamp(42px, 6.5vw, 108px);
+      line-height: 0.86;
+      letter-spacing: -0.08em;
+    }
+    .section-head p {
+      max-width: 500px;
+      margin: 0;
+      color: rgba(249,247,242,0.72);
+      line-height: 1.5;
+    }
+
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .note-card {
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      border: 1px solid rgba(249,247,242,0.12);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(249,247,242,0.07), rgba(249,247,242,0.02));
+      transition: background 200ms ease;
+    }
+    .note-card:hover {
+      background: linear-gradient(180deg, rgba(125,174,200,0.14), rgba(125,174,200,0.04));
+    }
+    .note-card span {
+      color: var(--indigo-2);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .note-card h3 {
+      margin: 12px 0 0;
+      font-size: 26px;
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+    }
+    .note-card p {
+      margin: 12px 0 0;
+      color: rgba(249,247,242,0.72);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+    .note-card .note-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .note-pill {
+      padding: 3px 9px;
+      border: 1px solid rgba(125,174,200,0.3);
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--indigo-2);
+    }
+    .note-card.featured { border-color: rgba(125,174,200,0.3); }
+
+    /* Extra wide featured card */
+    .note-card.wide { grid-column: span 2; }
+
+    /* ── GUIDE SECTION ── */
+    .guide-section {
+      display: grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(280px,0.9fr);
+      gap: 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-soft);
+    }
+    .guide-copy {
+      padding: clamp(40px, 6vw, 90px);
+      border-right: 1px solid var(--line);
+    }
+    .guide-copy h2 {
+      margin: 0 0 20px;
+      font-size: clamp(38px, 5.5vw, 82px);
+      line-height: 0.88;
+      letter-spacing: -0.07em;
+    }
+    .guide-copy p {
+      max-width: 520px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 20px;
+    }
+    .cert-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .cert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--paper);
+    }
+    .cert-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--indigo-5);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+    .cert-text strong { display: block; font-size: 14px; letter-spacing: -0.02em; margin-bottom: 2px; }
+    .cert-text span { color: var(--muted); font-size: 12px; }
+
+    .guide-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(28px, 4vw, 54px);
+      background:
+        radial-gradient(ellipse at 60% 30%, rgba(50,120,160,0.55), transparent 42%),
+        linear-gradient(155deg, #0d2540, #172f46);
+      color: #fff;
+    }
+    .guide-panel blockquote {
+      margin: 0;
+      padding: 0;
+      font-size: clamp(18px, 2.4vw, 28px);
+      line-height: 1.3;
+      letter-spacing: -0.04em;
+      color: rgba(220,232,240,0.92);
+    }
+    .guide-panel cite {
+      display: block;
+      margin-top: 18px;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--indigo-2);
+    }
+
+    /* ── JOIN ── */
+    .join {
+      display: grid;
+      grid-template-columns: 1fr minmax(280px, 520px);
+      gap: clamp(24px, 5vw, 80px);
+      padding: clamp(44px, 7vw, 100px) clamp(18px, 4vw, 54px);
+      background: var(--paper-soft);
+    }
+    .join h2 {
+      margin: 0;
+      font-size: clamp(44px, 7.5vw, 120px);
+      line-height: 0.84;
+      letter-spacing: -0.08em;
+    }
+    .join-form { display: grid; align-content: end; gap: 14px; }
+    .join-form label { color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .join-form input {
+      min-height: 52px;
+      padding: 0 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--ink);
+      outline: none;
+    }
+    .join-form input:focus { border-color: var(--indigo-3); }
+    .form-message { min-height: 22px; color: var(--muted); font-size: 13px; }
+
+    /* ── FOOTER ── */
+    footer {
+      display: grid;
+      gap: 14px;
+      padding: 24px clamp(18px, 4vw, 54px);
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      background: var(--paper);
+    }
+    .footer-main, .footer-accessibility {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .footer-nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-nav a:hover { color: var(--ink); }
+    .footer-accessibility {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .footer-accessibility button {
+      border: 0; padding: 0;
+      background: transparent;
+      color: var(--indigo-3);
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* ── FABs ── */
+    .access-fab {
+      position: fixed;
+      right: 18px; bottom: 18px; z-index: 50;
+      width: 52px; height: 52px;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50%;
+      background: var(--indigo-5);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      box-shadow: 0 12px 36px rgba(13,37,64,0.28);
+    }
+
+    /* ── MOBILE NAV ── */
+    .mobile-tabbar { display: none; }
+
+    /* ── DIALOGS ── */
+    .admin-dialog, .access-dialog {
+      width: min(980px, calc(100vw - 28px));
+      max-height: calc(100dvh - 28px);
+      padding: 0;
+      border: 0;
+      border-radius: 22px;
+      background: var(--paper-soft);
+      color: var(--ink);
+      box-shadow: 0 30px 100px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    .access-dialog { width: min(520px, calc(100vw - 28px)); }
+    .admin-dialog::backdrop, .access-dialog::backdrop {
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+    }
+    .admin-shell, .access-shell { display: grid; max-height: calc(100dvh - 28px); overflow: auto; }
+
+    .admin-header, .access-header {
+      position: sticky; top: 0; z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(249,247,242,0.96);
+      backdrop-filter: blur(14px);
+    }
+    .admin-header h2, .access-header h2 { margin: 0; font-size: 24px; line-height: 1; letter-spacing: -0.06em; }
+    .admin-body, .access-body { display: grid; gap: 20px; padding: 20px; }
+    .access-body p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
+
+    .dialog-tool-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .tool-btn {
+      min-height: 48px; padding: 10px 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--ink);
+      font-weight: 800;
+    }
+    .tool-btn[aria-pressed="true"] { border-color: var(--indigo-4); background: var(--indigo-4); color: #fff; }
+
+    .login-box, .admin-panel, .admin-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+    }
+    .login-box { display: grid; gap: 16px; max-width: 520px; padding: 20px; }
+    .login-box h3, .admin-card h3 { margin: 0; font-size: 26px; line-height: 1; letter-spacing: -0.06em; }
+    .login-box p, .admin-help { margin: 0; color: var(--muted); line-height: 1.45; font-size: 14px; }
+
+    .login-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+    .login-row input, .admin-form input, .admin-form select, .admin-form textarea {
+      width: 100%;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      background: var(--paper-soft);
+      color: var(--ink);
+      outline: none;
+    }
+    .login-row input { min-height: 48px; padding: 0 14px; border-radius: 999px; }
+    .admin-form input, .admin-form select { min-height: 48px; padding: 0 12px; }
+    .admin-form textarea { min-height: 90px; padding: 12px; resize: vertical; }
+
+    .admin-panel { display: none; gap: 16px; padding: 0; border: 0; background: transparent; }
+    .admin-panel.is-visible { display: grid; }
+
+    .admin-toolbar {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      align-items: center; justify-content: space-between;
+      padding: 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--paper);
+    }
+    .admin-toolbar p { margin: 0; color: var(--muted); font-size: 14px; }
+    .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .admin-card { padding: 18px; }
+    .admin-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .field { display: grid; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .admin-list { display: grid; gap: 10px; margin-top: 16px; }
+    .admin-ride {
+      display: grid; grid-template-columns: 1fr auto; gap: 12px;
+      align-items: center; padding: 12px;
+      border: 1px solid var(--line); border-radius: 14px; background: var(--paper-soft);
+    }
+    .admin-ride strong { display: block; margin-bottom: 4px; font-size: 15px; letter-spacing: -0.02em; }
+    .admin-ride span { display: block; color: var(--muted); font-size: 12px; line-height: 1.35; }
+    .admin-message { min-height: 22px; color: var(--muted); font-size: 13px; }
+    .admin-message.success { color: var(--success); }
+    .admin-message.error { color: var(--danger); }
+
+    .hidden { display: none !important; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1080px) {
+      .site-header { grid-template-columns: 1fr auto; }
+      .main-nav { display: none; }
+      .hero, .rides, .join, .admin-grid { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+      .hero-panel { min-height: 440px; }
+      .rides-aside { position: static; }
+      .event-card { grid-template-columns: 90px 1fr; }
+      .event-actions { grid-column: 2; display: flex; flex-wrap: wrap; }
+      .note-grid { grid-template-columns: repeat(2, 1fr); }
+      .note-card.wide { grid-column: span 1; }
+      .section-head { align-items: start; flex-direction: column; }
+      .guide-section { grid-template-columns: 1fr; }
+      .guide-copy { border-right: 0; border-bottom: 1px solid var(--line); }
+      .guide-panel { min-height: 280px; }
+      .bridge-inner { grid-template-columns: 1fr; }
+      .bridge-countdown { grid-template-columns: repeat(4, 1fr); }
+      .credentials-strip { flex-wrap: wrap; }
+      .cred-item { border-right: 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .cred-item:last-child { border-bottom: 0; }
+    }
+
+    @media (max-width: 760px) {
+      body { padding-bottom: calc(var(--mobile-nav-height) + env(safe-area-inset-bottom)); }
+
+      .announcement { padding: 9px 14px; font-size: 10px; line-height: 1.35; }
+
+      .site-header { grid-template-columns: 1fr auto; padding: 14px 16px; }
+      .header-actions .solid-btn { display: none; }
+      .header-actions .ghost-btn { min-height: 38px; padding: 0 12px; font-size: 10px; }
+
+      .hero { display: flex; flex-direction: column; }
+      .hero-copy { min-height: 55dvh; padding: 44px 18px 32px; }
+
+      h1 { font-size: clamp(58px, 20vw, 108px); letter-spacing: -0.095em; }
+      .hero-copy p { margin-top: 20px; font-size: 17px; }
+      .hero-panel { min-height: 380px; padding: 18px; }
+      .hero-panel::after { width: 90%; height: 90%; border-width: 30px; }
+      .route-badge { padding: 18px; }
+
+      .route-stats, .event-numbers, .search-wrap, .login-row, .admin-form {
+        grid-template-columns: 1fr;
+      }
+      .note-grid { grid-template-columns: 1fr; }
+
+      .controls { gap: 16px; padding: 20px 0 22px; overflow: hidden; }
+      .control-row {
+        flex-wrap: nowrap; overflow-x: auto;
+        padding: 0 18px 2px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .control-row::-webkit-scrollbar { display: none; }
+      .control-label {
+        position: sticky; left: 0; z-index: 1;
+        min-width: max-content; padding-right: 8px;
+        background: var(--paper-soft);
+      }
+      .search-wrap { padding: 0 18px; }
+      .search-wrap .ghost-btn { width: 100%; }
+
+      .rides { padding: 34px 18px 56px; }
+      .rides-count { margin-bottom: 14px; }
+      .aside-note { max-width: none; }
+      .aside-links { grid-template-columns: 1fr 1fr; }
+
+      .week { margin-bottom: 32px; }
+      .week-header { align-items: flex-start; flex-direction: column; gap: 6px; }
+
+      .event-card { grid-template-columns: 1fr; gap: 14px; padding: 24px 0; }
+      .date-box { display: flex; align-items: flex-end; gap: 8px; }
+      .date-box .day { font-size: 38px; }
+      .event-actions { grid-column: auto; display: grid; grid-template-columns: 1fr; min-width: 0; }
+      .card-btn { width: 100%; }
+      .event-title { font-size: 28px; }
+
+      .bridge-countdown { grid-template-columns: repeat(2, 1fr); }
+      .bridge-inner { grid-template-columns: 1fr; }
+
+      .credentials-strip { flex-direction: column; }
+      .cred-item { min-width: 100%; }
+
+      .guide-section { grid-template-columns: 1fr; }
+      .guide-copy { padding: 44px 18px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .guide-panel { min-height: 260px; padding: 28px 18px; }
+
+      .route-notes { padding: 50px 18px; }
+      .section-head h2 { font-size: clamp(44px, 15vw, 68px); }
+      .note-card { min-height: 200px; }
+
+      .join { padding: 54px 18px; }
+      .join h2 { font-size: clamp(50px, 16vw, 84px); }
+
+      .footer-main, .footer-accessibility { align-items: flex-start; flex-direction: column; }
+
+      .mobile-tabbar {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        min-height: calc(var(--mobile-nav-height) + env(safe-area-inset-bottom));
+        padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+        border-top: 1px solid var(--line);
+        background: rgba(242,239,232,0.95);
+        backdrop-filter: blur(18px);
+      }
+      body.a11y-contrast .mobile-tabbar { background: #fff; }
+      .mobile-tabbar a, .mobile-tabbar button {
+        display: grid; place-items: center;
+        min-height: 52px; border: 0; border-radius: 14px;
+        background: transparent; color: var(--muted);
+        font-size: 10px; font-weight: 800; letter-spacing: 0.03em;
+      }
+      .mobile-tabbar a:active, .mobile-tabbar button:active { background: var(--indigo-1); color: var(--ink); }
+
+      .access-fab {
+        width: 48px; height: 48px; right: 14px;
+        bottom: calc(var(--mobile-nav-height) + 14px + env(safe-area-inset-bottom));
+      }
+      .admin-dialog, .access-dialog {
+        width: 100vw; max-width: none;
+        height: 100dvh; max-height: none;
+        border-radius: 0;
+      }
+      .admin-shell, .access-shell { max-height: 100dvh; }
+      .admin-header, .access-header { padding: calc(16px + env(safe-area-inset-top)) 16px 16px; }
+      .admin-body, .access-body { padding: 16px 16px calc(28px + env(safe-area-inset-bottom)); }
+      .admin-toolbar { align-items: stretch; flex-direction: column; }
+      .admin-toolbar .control-row { overflow: visible; padding: 0; flex-wrap: wrap; }
+      .admin-toolbar .ghost-btn, .admin-toolbar .danger-btn { flex: 1; }
+      .admin-ride { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 380px) {
+      .brand span:last-child { display: none; }
+      h1 { font-size: 54px; }
+      .event-title { font-size: 25px; }
+      .route-badge h2 { font-size: 30px; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="announcement" role="status">
+    <strong>2027 :</strong> Onaruto Bridge cycling path opens — Japan's first prefectural cycling route over the bridge &nbsp;·&nbsp; <strong>Naruto coastal guiding now taking bookings</strong>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Ride Tokushima home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 12 L8 4 L13 12" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="8" cy="4" r="1.5" fill="white"/>
+        </svg>
+      </span>
+      Ride Tokushima
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#rides">Rides</a>
+      <a href="#routes">Routes</a>
+      <a href="#bridge">Onaruto 2027</a>
+      <a href="#tokushima">The Prefecture</a>
+      <a href="#join" class="nav-cta">Join waitlist</a>
+    </nav>
+
+    <div class="header-actions">
+      <button id="adminOpen" class="ghost-btn" type="button">Admin</button>
+      <a class="solid-btn" href="#join">Sign up</a>
+    </div>
+  </header>
+
+  <main id="main" class="page" tabindex="-1">
+
+    <!-- HERO -->
+    <section id="top" class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Tokushima, Japan — 徳島サイクリング</p>
+        <h1 id="hero-title">Ride with us.</h1>
+        <p>
+          Road, gravel, social, and guided rides from the Yoshino River to Naruto's sea channels, the deep gorges of Iya, and the unmarked forest roads of Kamikatsu. Tokushima is Shikoku's least-discovered cycling prefecture.
+        </p>
+        <div class="hero-actions">
+          <a class="solid-btn" href="#rides">See all rides</a>
+          <a class="ghost-btn" href="#tokushima">About Tokushima</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Featured route">
+        <div class="route-badge">
+          <p class="eyebrow">Featured this month</p>
+          <h2 id="featuredTitle">Naruto Coast Social</h2>
+          <div class="route-stats">
+            <div>
+              <strong id="featuredDistance">52km</strong>
+              <span>Distance</span>
+            </div>
+            <div>
+              <strong id="featuredElevation">430m</strong>
+              <span>Elevation</span>
+            </div>
+            <div>
+              <strong id="featuredPace">27kph</strong>
+              <span>Pace</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- TOKUSHIMA STATS STRIP -->
+    <div class="credentials-strip" role="complementary" aria-label="Tokushima cycling facts">
+      <div class="cred-item">
+        <span class="cred-label">Prefecture</span>
+        <div class="cred-value">Tokushima
+          <small>Northeast Shikoku — 徳島県</small>
+        </div>
+      </div>
+      <div class="cred-item">
+        <span class="cred-label">Terrain</span>
+        <div class="cred-value">River, Coast &amp; Mountain
+          <small>From sea level to 1,955m (Mt. Tsurugi)</small>
+        </div>
+      </div>
+      <div class="cred-item">
+        <span class="cred-label">Longest forest road</span>
+        <div class="cred-value">87.7km
+          <small>Tsurugi Super Rindō — Japan's longest</small>
+        </div>
+      </div>
+      <div class="cred-item">
+        <span class="cred-label">Coming 2027</span>
+        <div class="cred-value">Onaruto Bridge
+          <small>Cycling path over the whirlpool straits</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILTER CONTROLS -->
+    <section class="controls" aria-label="Ride filters">
+      <div class="control-row" data-filter-group="type">
+        <span class="control-label">Ride type</span>
+        <button class="chip is-active" type="button" data-filter="All">All</button>
+        <button class="chip" type="button" data-filter="Social">Social</button>
+        <button class="chip" type="button" data-filter="Training">Training</button>
+        <button class="chip" type="button" data-filter="Gravel">Gravel</button>
+        <button class="chip" type="button" data-filter="Women">Women's</button>
+        <button class="chip" type="button" data-filter="Hill Climb">Hill Climb</button>
+        <button class="chip" type="button" data-filter="Festival">Festival</button>
+        <button class="chip" type="button" data-filter="Guided">Guided</button>
+      </div>
+
+      <div class="control-row" data-filter-group="area">
+        <span class="control-label">Start area</span>
+        <button class="chip is-active" type="button" data-filter="All">All areas</button>
+        <button class="chip" type="button" data-filter="Tokushima City">Tokushima City</button>
+        <button class="chip" type="button" data-filter="Naruto">Naruto</button>
+        <button class="chip" type="button" data-filter="Yoshino River">Yoshino River</button>
+        <button class="chip" type="button" data-filter="Iya Valley">Iya Valley</button>
+        <button class="chip" type="button" data-filter="Anan Coast">Anan Coast</button>
+        <button class="chip" type="button" data-filter="Kamikatsu">Kamikatsu</button>
+        <button class="chip" type="button" data-filter="Nishi-Awa">Nishi-Awa</button>
+      </div>
+
+      <div class="search-wrap">
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search by ride, route, location, or pace..."
+          aria-label="Search rides"
+        />
+        <button id="clearSearch" class="ghost-btn" type="button">Clear</button>
+      </div>
+    </section>
+
+    <!-- RIDE LIST -->
+    <section id="rides" class="rides" aria-labelledby="rides-title">
+      <aside class="rides-aside">
+        <h2 id="rides-title" class="rides-count">
+          <strong id="rideCount">0</strong>
+          <span>rides</span>
+        </h2>
+        <p class="aside-note">
+          All rides stored locally in this browser. Use the Admin button to add or delete events — or export to JSON for backup.
+        </p>
+
+        <nav class="aside-links" aria-label="Quick filters">
+          <a class="aside-link-item" href="#" data-quick-filter-type="Guided">
+            Guided tours <span>→</span>
+          </a>
+          <a class="aside-link-item" href="#" data-quick-filter-type="Gravel">
+            Gravel rides <span>→</span>
+          </a>
+          <a class="aside-link-item" href="#" data-quick-filter-area="Naruto">
+            Naruto area <span>→</span>
+          </a>
+          <a class="aside-link-item" href="#" data-quick-filter-area="Iya Valley">
+            Iya Valley <span>→</span>
+          </a>
+        </nav>
+      </aside>
+
+      <div>
+        <div id="eventsContainer" aria-live="polite"></div>
+        <div id="emptyState" class="empty-state">
+          No rides match your filters. Try another area or clear the search.
+        </div>
+      </div>
+    </section>
+
+    <!-- ROUTES SECTION -->
+    <section id="routes" class="route-notes" aria-labelledby="routes-title">
+      <div class="section-head">
+        <h2 id="routes-title">Routes shaped by the island.</h2>
+        <p>
+          Tokushima gives riders a rare mix: open river flats, sea-air coastal roads, fishing-town lanes, technical mountain climbs, and deep forest valleys found nowhere else in Western Shikoku.
+        </p>
+      </div>
+
+      <div class="note-grid">
+        <article class="note-card wide featured">
+          <span>Flagship Route</span>
+          <div>
+            <h3>Naruto Coastal Circuit</h3>
+            <p>
+              JR Naruto Station out along Uchinoumi's fishing lanes, over rolling headlands, and back through Naruto Park above the whirlpools. The primary guided inbound route — social pace, photo stops, and a coastal café finish.
+            </p>
+          </div>
+          <div class="note-stats">
+            <span class="note-pill">52–85km</span>
+            <span class="note-pill">430–750m</span>
+            <span class="note-pill">Sea views</span>
+            <span class="note-pill">Guided available</span>
+          </div>
+        </article>
+
+        <article class="note-card">
+          <span>Urban Climb</span>
+          <div>
+            <h3>Mt. Bizan</h3>
+            <p>Short, sharp, and close to the city. A compact test piece before coffee near Tokushima Station — 620m in 28km with a timed summit effort.</p>
+          </div>
+          <div class="note-stats">
+            <span class="note-pill">28km</span>
+            <span class="note-pill">620m</span>
+          </div>
+        </article>
+
+        <article class="note-card">
+          <span>Remote Valley</span>
+          <div>
+            <h3>Iya Valley</h3>
+            <p>Mountain roads, vine bridges, and gorge scenery for riders who want a full-day escape. Almost no English documentation exists — genuinely undiscovered territory.</p>
+          </div>
+          <div class="note-stats">
+            <span class="note-pill">40–70km</span>
+            <span class="note-pill">900–1400m</span>
+          </div>
+        </article>
+
+        <article class="note-card">
+          <span>Gravel Prestige</span>
+          <div>
+            <h3>Kamikatsu — Tsurugi Rindō</h3>
+            <p>Japan's zero-waste village as a basecamp, then up into the Tsurugi Super Rindō forest-road network. Brutal, beautiful, and completely undocumented in English.</p>
+          </div>
+          <div class="note-stats">
+            <span class="note-pill">60–90km</span>
+            <span class="note-pill">1800–2400m</span>
+            <span class="note-pill">Wide tires</span>
+          </div>
+        </article>
+
+        <article class="note-card">
+          <span>Claimable Corridor</span>
+          <div>
+            <h3>Sanagouchi–Kamiyama</h3>
+            <p>Forested mountain route connecting two of Shikoku's most interesting villages. Near-zero English documentation. A defining editorial position for Ride Tokushima.</p>
+          </div>
+          <div class="note-stats">
+            <span class="note-pill">50–70km</span>
+            <span class="note-pill">1200–1800m</span>
+          </div>
+        </article>
+
+        <article class="note-card" id="safety">
+          <span>Group Rules</span>
+          <div>
+            <h3>Before you ride</h3>
+            <p>Helmet, front/rear lights, spare tube, cycling insurance, and respect for local traffic are required on every group ride. No exceptions.</p>
+          </div>
+          <div class="note-stats">
+            <span class="note-pill">Helmet required</span>
+            <span class="note-pill">Insurance required</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ONARUTO BRIDGE TEASER -->
+    <section id="bridge" class="bridge-teaser" aria-labelledby="bridge-title">
+      <div class="page bridge-inner">
+        <div>
+          <div class="bridge-label">Coming 2027</div>
+          <h2 class="bridge-title" id="bridge-title">Onaruto Bridge.<br>Cycling path opens.</h2>
+          <p class="bridge-sub">
+            The Onaruto Bridge — spanning the whirlpool straits between Awaji Island and Tokushima — opens to cyclists in 2027. Japan's first cycling crossing over this iconic structure. Ride Tokushima is building towards this as its primary brand milestone.
+          </p>
+        </div>
+
+        <div class="bridge-countdown" aria-label="Bridge opening statistics">
+          <div class="bridge-stat">
+            <strong>1.6km</strong>
+            <span>Bridge span</span>
+          </div>
+          <div class="bridge-stat">
+            <strong>2027</strong>
+            <span>Opening year</span>
+          </div>
+          <div class="bridge-stat">
+            <strong>Shikoku</strong>
+            <span>Island side</span>
+          </div>
+          <div class="bridge-stat">
+            <strong>First</strong>
+            <span>Prefectural cycling route</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKUSHIMA SECTION -->
+    <section id="tokushima" class="guide-section" aria-labelledby="tokushima-title">
+      <div class="guide-copy">
+        <p class="eyebrow indigo">The prefecture — 徳島県</p>
+        <h2 id="tokushima-title">Shikoku's cycling blind spot.</h2>
+        <p>
+          Tokushima sits on the northeast corner of Shikoku — between the Yoshino River to the north, the Anan coastline to the south, and the Tsurugi massif rising to nearly 2,000 metres at its centre. Most visiting cyclists pass through on pilgrimage. Almost none stop to ride.
+        </p>
+        <p>
+          That's changing. The prefecture has a national cycle route designation along the Yoshino River, the longest forest road in Japan running through the Tsurugi mountains, a zero-waste village used as a cycling basecamp, and a coastal riding scene that rivals anything in Western Japan — all with a fraction of the traffic and tourist infrastructure of Kyoto or Hiroshima.
+        </p>
+
+        <div class="cert-list" aria-label="Tokushima cycling facts">
+          <div class="cert-item">
+            <div class="cert-icon" aria-hidden="true">🌊</div>
+            <div class="cert-text">
+              <strong>Naruto Whirlpools &amp; Coastal Circuit</strong>
+              <span>Sea-air roads above one of Japan's great natural phenomena</span>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon" aria-hidden="true">🏔</div>
+            <div class="cert-text">
+              <strong>Tsurugi Super Rindō — Japan's Longest Forest Road</strong>
+              <span>87.7km, ~80% unpaved — branded "Gravel no Seichi" (Gravel Holy Land)</span>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon" aria-hidden="true">♻️</div>
+            <div class="cert-text">
+              <strong>Kamikatsu — Japan's Zero-Waste Village</strong>
+              <span>A unique cultural stop woven into mountain cycling routes</span>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon" aria-hidden="true">🛤</div>
+            <div class="cert-text">
+              <strong>Yoshino River National Cycle Route</strong>
+              <span>Designated national cycling corridor from coast to mountains</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-panel" aria-hidden="true">
+        <blockquote>
+          "Tokushima has the roads, the terrain, the culture, and the quiet. It's missing only the riders who know it exists."
+        </blockquote>
+        <cite>Ride Tokushima · 徳島 · Shikoku, Japan</cite>
+      </div>
+    </section>
+
+    <!-- JOIN -->
+    <section id="join" class="join" aria-labelledby="join-title">
+      <h2 id="join-title">Join the next roll-out.</h2>
+
+      <form class="join-form" id="joinForm">
+        <label for="email">
+          Monthly ride drops, route notes, Onaruto Bridge updates, and early access to guided tour bookings.
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        />
+        <button class="solid-btn" type="submit">Get ride drops</button>
+        <p id="formMessage" class="form-message" role="status"></p>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-main">
+      <span>© 2026 Ride Tokushima. All rights reserved.</span>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#rides">Rides</a>
+        <a href="#routes">Routes</a>
+        <a href="#tokushima">The Prefecture</a>
+        <a href="#bridge">Onaruto 2027</a>
+        <a href="#join">Join</a>
+      </nav>
+      <span>Tokushima, Japan · 徳島県</span>
+    </div>
+    <div class="footer-accessibility">
+      <span>
+        Accessibility:
+        <button type="button" id="footerAccessOpen">Display options</button>
+      </span>
+      <span>@ridetokushima</span>
+    </div>
+  </footer>
+
+  <nav class="mobile-tabbar" aria-label="Mobile navigation">
+    <a href="#top">Home</a>
+    <a href="#rides">Rides</a>
+    <a href="#routes">Routes</a>
+    <a href="#join">Join</a>
+  </nav>
+
+  <button
+    id="accessOpen"
+    class="access-fab"
+    type="button"
+    aria-label="Open accessibility display options"
+    title="Accessibility options"
+  >Aa</button>
+
+  <!-- ACCESSIBILITY DIALOG -->
+  <dialog id="accessDialog" class="access-dialog" aria-labelledby="accessDialogTitle">
+    <div class="access-shell">
+      <header class="access-header">
+        <h2 id="accessDialogTitle">Display options</h2>
+        <button id="accessClose" class="ghost-btn" type="button">Close</button>
+      </header>
+      <div class="access-body">
+        <p>Adjust the page for easier reading. Settings are saved in this browser.</p>
+        <div class="dialog-tool-grid" aria-label="Accessibility options">
+          <button class="tool-btn" type="button" data-a11y-toggle="largeText" aria-pressed="false">Larger text</button>
+          <button class="tool-btn" type="button" data-a11y-toggle="contrast" aria-pressed="false">High contrast</button>
+          <button class="tool-btn" type="button" data-a11y-toggle="motion" aria-pressed="false">Reduce motion</button>
+          <button class="tool-btn" type="button" data-a11y-reset>Reset options</button>
+        </div>
+        <p>These tools help usability but do not replace a full accessibility audit or legal review.</p>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ADMIN DIALOG -->
+  <dialog id="adminDialog" class="admin-dialog" aria-labelledby="adminDialogTitle">
+    <div class="admin-shell">
+      <header class="admin-header">
+        <h2 id="adminDialogTitle">Ride Admin</h2>
+        <button id="adminClose" class="ghost-btn" type="button">Close</button>
+      </header>
+      <div class="admin-body">
+        <section id="loginBox" class="login-box">
+          <h3>Password protected</h3>
+          <p>Enter the admin password to add or delete rides.</p>
+          <form id="loginForm" class="login-row">
+            <label class="hidden" for="adminPassword">Admin password</label>
+            <input id="adminPassword" type="password" placeholder="Enter password" autocomplete="current-password" required />
+            <button class="solid-btn" type="submit">Unlock</button>
+          </form>
+          <p id="loginMessage" class="admin-message" role="status"></p>
+        </section>
+
+        <section id="adminPanel" class="admin-panel">
+          <div class="admin-toolbar">
+            <p>Admin unlocked. Changes saved to this browser's local database.</p>
+            <div class="control-row">
+              <button id="exportRides" class="ghost-btn" type="button">Export JSON</button>
+              <button id="resetRides" class="danger-btn" type="button">Reset sample data</button>
+              <button id="adminLogout" class="ghost-btn" type="button">Logout</button>
+            </div>
+          </div>
+
+          <div class="admin-grid">
+            <article class="admin-card">
+              <h3>Add a ride</h3>
+              <p class="admin-help">Fill in the event details and publish immediately to the ride list.</p>
+              <form id="rideForm" class="admin-form">
+                <div class="field">
+                  <label for="rideTitle">Ride title</label>
+                  <input id="rideTitle" name="title" required placeholder="Naruto Coast Social" />
+                </div>
+                <div class="field">
+                  <label for="rideType">Ride type</label>
+                  <select id="rideType" name="type" required>
+                    <option value="Social">Social</option>
+                    <option value="Training">Training</option>
+                    <option value="Gravel">Gravel</option>
+                    <option value="Women">Women's</option>
+                    <option value="Hill Climb">Hill Climb</option>
+                    <option value="Festival">Festival</option>
+                    <option value="Guided">Guided</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="rideArea">Start area</label>
+                  <select id="rideArea" name="area" required>
+                    <option value="Tokushima City">Tokushima City</option>
+                    <option value="Naruto">Naruto</option>
+                    <option value="Yoshino River">Yoshino River</option>
+                    <option value="Iya Valley">Iya Valley</option>
+                    <option value="Anan Coast">Anan Coast</option>
+                    <option value="Kamikatsu">Kamikatsu</option>
+                    <option value="Nishi-Awa">Nishi-Awa</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="rideDate">Date and time</label>
+                  <input id="rideDate" name="date" type="datetime-local" required />
+                </div>
+                <div class="field full">
+                  <label for="rideLocation">Location / route</label>
+                  <input id="rideLocation" name="location" required placeholder="JR Naruto Station → Uchinoumi → Naruto Park" />
+                </div>
+                <div class="field">
+                  <label for="rideDistance">Distance</label>
+                  <input id="rideDistance" name="distance" required placeholder="52km" />
+                </div>
+                <div class="field">
+                  <label for="rideElevation">Elevation</label>
+                  <input id="rideElevation" name="elevation" required placeholder="430m" />
+                </div>
+                <div class="field">
+                  <label for="ridePace">Pace</label>
+                  <input id="ridePace" name="pace" required placeholder="25–28kph" />
+                </div>
+                <div class="field">
+                  <label for="rideTag">Tag</label>
+                  <input id="rideTag" name="tag" required placeholder="Scenic" />
+                </div>
+                <div class="field full">
+                  <label for="rideDescription">Description</label>
+                  <textarea id="rideDescription" name="description" required placeholder="A relaxed coastal ride with regroup points and a café finish."></textarea>
+                </div>
+                <div class="field full">
+                  <button class="solid-btn" type="submit">Add ride</button>
+                </div>
+                <p id="adminMessage" class="admin-message field full" role="status"></p>
+              </form>
+            </article>
+
+            <article class="admin-card">
+              <h3>Delete rides</h3>
+              <p class="admin-help">Remove rides from the local database. Updates the public list immediately.</p>
+              <div id="adminRideList" class="admin-list"></div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    const STORAGE_KEY = "ride-tokushima-rides-v2";
+    const ADMIN_SESSION_KEY = "ride-tokushima-admin-session-v1";
+    const A11Y_STORAGE_KEY = "ride-tokushima-accessibility-v1";
+    const ADMIN_PASSWORD = "password123";
+
+    const sampleRides = [
+      {
+        id: "seed-1",
+        title: "Yoshino River Breakfast Ride",
+        type: "Social",
+        area: "Tokushima City",
+        date: "2026-07-04T07:00",
+        location: "Tokushima Station → Yoshino River north bank → Bandai Bridge",
+        distance: "42km",
+        elevation: "120m",
+        pace: "23–26kph",
+        tag: "Coffee finish",
+        description: "A relaxed river spin with rotating pairs, regroup points, and a bakery stop near the finish. Good introduction to Tokushima city riding."
+      },
+      {
+        id: "seed-2",
+        title: "Naruto Coast Social",
+        type: "Social",
+        area: "Naruto",
+        date: "2026-07-05T08:00",
+        location: "JR Naruto Station → Uchinoumi → Naruto Park → whirlpool viewpoint",
+        distance: "52km",
+        elevation: "430m",
+        pace: "25–28kph",
+        tag: "Scenic",
+        description: "Steady coastal roads, rolling sections through fishing villages, and photo stops overlooking Naruto's sea channels and whirlpools."
+      },
+      {
+        id: "seed-3",
+        title: "Bizan Before Work",
+        type: "Hill Climb",
+        area: "Tokushima City",
+        date: "2026-07-09T06:15",
+        location: "Aibahama Park → Mt. Bizan loop → city descent",
+        distance: "28km",
+        elevation: "620m",
+        pace: "Open pace",
+        tag: "Climb",
+        description: "Short city warm-up, timed climb effort, regroup at the summit, then easy descent back downtown. City views from the top on clear mornings."
+      },
+      {
+        id: "seed-4",
+        title: "Anan Coast Tempo",
+        type: "Training",
+        area: "Anan Coast",
+        date: "2026-07-12T07:30",
+        location: "Anan Station → Tachibana Bay → Shishikui → coastal return",
+        distance: "76km",
+        elevation: "680m",
+        pace: "29–32kph",
+        tag: "Tempo",
+        description: "Controlled tempo ride with rotating paceline practice and a final endurance block. One of Tokushima's best training loops — low traffic, excellent road surface."
+      },
+      {
+        id: "seed-5",
+        title: "Women's River Session",
+        type: "Women",
+        area: "Yoshino River",
+        date: "2026-07-18T07:00",
+        location: "Yoshinogawa Bridge west side → river loop",
+        distance: "38km",
+        elevation: "90m",
+        pace: "No-drop",
+        tag: "No-drop",
+        description: "Skills-focused group ride covering hand signals, drafting basics, and smooth group rotation. No-drop format — regroup waits for every rider."
+      },
+      {
+        id: "seed-6",
+        title: "Iya Valley Slow Cycling",
+        type: "Social",
+        area: "Iya Valley",
+        date: "2026-07-25T09:00",
+        location: "Oboke Station → Iya Valley scenic loop → vine bridge",
+        distance: "46km",
+        elevation: "870m",
+        pace: "Social",
+        tag: "Mountain",
+        description: "A slower scenic ride through gorge roads with frequent stops, local lunch, and photo opportunities at Iya's vine bridges and waterfall points."
+      },
+      {
+        id: "seed-7",
+        title: "Nishi-Awa Gravel Recon",
+        type: "Gravel",
+        area: "Nishi-Awa",
+        date: "2026-08-01T08:00",
+        location: "Miyoshi → Higashi-Iya forest-road loop → Oboke descent",
+        distance: "64km",
+        elevation: "1450m",
+        pace: "Mixed terrain",
+        tag: "Gravel",
+        description: "Wide tires recommended. Expect broken tarmac, forest connectors, long climbing sections, and zero other cyclists. Pack a spare tube and extra food."
+      },
+      {
+        id: "seed-8",
+        title: "Awa Odori Festival Spin",
+        type: "Festival",
+        area: "Tokushima City",
+        date: "2026-08-12T16:30",
+        location: "Tokushima Central Park → city lights circuit → festival district",
+        distance: "24km",
+        elevation: "80m",
+        pace: "Easy",
+        tag: "Festival",
+        description: "A short pre-evening city ride timed for riders heading into the Awa Odori festival atmosphere. One of Japan's largest summer festivals."
+      },
+      {
+        id: "seed-9",
+        title: "Naruto Coast Guided — Inbound",
+        type: "Guided",
+        area: "Naruto",
+        date: "2026-09-06T08:30",
+        location: "JR Naruto Station → Uchinoumi fishing lanes → Naruto Park coastal circuit",
+        distance: "52km",
+        elevation: "430m",
+        pace: "25–27kph",
+        tag: "Guided",
+        description: "Fully guided English-language coastal tour. GPX route file provided, cyclist-appropriate stops, and a coastal café finish. Helmets provided. Limited group size."
+      },
+      {
+        id: "seed-10",
+        title: "Kamikatsu Zero Waste E-Bike Tour",
+        type: "Guided",
+        area: "Kamikatsu",
+        date: "2026-09-13T09:00",
+        location: "Kamikatsu → Tsurugi foothills → zero-waste centre → forest return",
+        distance: "34km",
+        elevation: "480m",
+        pace: "E-bike",
+        tag: "Cultural",
+        description: "E-bike loop through Japan's zero-waste village with stops at the local sorting centre, mountain tea farms, and forest roads under the Tsurugi massif. Accessible pace. Cultural and cycling combined."
+      },
+      {
+        id: "seed-11",
+        title: "Sanagouchi–Kamiyama Mountain Pass",
+        type: "Gravel",
+        area: "Nishi-Awa",
+        date: "2026-09-20T08:00",
+        location: "Sanagouchi → mountain forest connector → Kamiyama valley descent",
+        distance: "58km",
+        elevation: "1600m",
+        pace: "Mixed terrain",
+        tag: "Undiscovered",
+        description: "One of Shikoku's best-kept cycling corridors. Forested mountain road linking Sanagouchi and Kamiyama — near-zero English documentation, no signage, exceptional surfaces. Wide tires strongly recommended."
+      },
+      {
+        id: "seed-12",
+        title: "Yoshino River Century — Autumn",
+        type: "Training",
+        area: "Yoshino River",
+        date: "2026-10-04T07:00",
+        location: "Tokushima Station → Yoshino River west → Mima → Miyoshi → return",
+        distance: "160km",
+        elevation: "1200m",
+        pace: "28–32kph",
+        tag: "Century",
+        description: "Full century ride along the Yoshino River corridor. River flats, foothills, and the agricultural heartland of western Tokushima. Autumn colours from late October."
+      }
+    ];
+
+    let rides = loadRides();
+
+    const state = { type: "All", area: "All", query: "" };
+    const a11yState = loadA11yPreferences();
+
+    const eventsContainer = document.querySelector("#eventsContainer");
+    const rideCount = document.querySelector("#rideCount");
+    const emptyState = document.querySelector("#emptyState");
+    const searchInput = document.querySelector("#searchInput");
+    const clearSearch = document.querySelector("#clearSearch");
+    const joinForm = document.querySelector("#joinForm");
+    const formMessage = document.querySelector("#formMessage");
+
+    const featuredTitle = document.querySelector("#featuredTitle");
+    const featuredDistance = document.querySelector("#featuredDistance");
+    const featuredElevation = document.querySelector("#featuredElevation");
+    const featuredPace = document.querySelector("#featuredPace");
+
+    const accessOpen = document.querySelector("#accessOpen");
+    const footerAccessOpen = document.querySelector("#footerAccessOpen");
+    const accessClose = document.querySelector("#accessClose");
+    const accessDialog = document.querySelector("#accessDialog");
+
+    const adminOpen = document.querySelector("#adminOpen");
+    const adminClose = document.querySelector("#adminClose");
+    const adminDialog = document.querySelector("#adminDialog");
+    const loginBox = document.querySelector("#loginBox");
+    const loginForm = document.querySelector("#loginForm");
+    const adminPassword = document.querySelector("#adminPassword");
+    const loginMessage = document.querySelector("#loginMessage");
+    const adminPanel = document.querySelector("#adminPanel");
+    const rideForm = document.querySelector("#rideForm");
+    const adminRideList = document.querySelector("#adminRideList");
+    const adminMessage = document.querySelector("#adminMessage");
+    const adminLogout = document.querySelector("#adminLogout");
+    const exportRides = document.querySelector("#exportRides");
+    const resetRides = document.querySelector("#resetRides");
+
+    function detectDeviceMode() {
+      const isSmallScreen = window.matchMedia("(max-width: 760px)").matches;
+      const isTouch = window.matchMedia("(pointer: coarse)").matches;
+      document.body.classList.toggle("is-mobile", isSmallScreen);
+      document.body.classList.toggle("is-touch", isTouch);
+      document.documentElement.dataset.device = isSmallScreen ? "mobile" : "desktop";
+    }
+
+    function loadRides() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (!stored) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(sampleRides));
+          return [...sampleRides];
+        }
+        const parsed = JSON.parse(stored);
+        if (!Array.isArray(parsed)) throw new Error("Invalid");
+        return parsed;
+      } catch (error) {
+        console.warn("Could not load rides. Restoring sample data.", error);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(sampleRides));
+        return [...sampleRides];
+      }
+    }
+
+    function saveRides() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(rides));
+    }
+
+    function loadA11yPreferences() {
+      try {
+        const stored = localStorage.getItem(A11Y_STORAGE_KEY);
+        if (!stored) return { largeText: false, contrast: false, motion: false };
+        return { largeText: false, contrast: false, motion: false, ...JSON.parse(stored) };
+      } catch {
+        return { largeText: false, contrast: false, motion: false };
+      }
+    }
+
+    function saveA11yPreferences() {
+      localStorage.setItem(A11Y_STORAGE_KEY, JSON.stringify(a11yState));
+    }
+
+    function applyA11yPreferences() {
+      document.body.classList.toggle("a11y-large-text", a11yState.largeText);
+      document.body.classList.toggle("a11y-contrast", a11yState.contrast);
+      document.body.classList.toggle("a11y-reduced-motion", a11yState.motion);
+      document.querySelectorAll('[data-a11y-toggle="largeText"]').forEach(b => b.setAttribute("aria-pressed", String(a11yState.largeText)));
+      document.querySelectorAll('[data-a11y-toggle="contrast"]').forEach(b => b.setAttribute("aria-pressed", String(a11yState.contrast)));
+      document.querySelectorAll('[data-a11y-toggle="motion"]').forEach(b => b.setAttribute("aria-pressed", String(a11yState.motion)));
+    }
+
+    function resetA11yPreferences() {
+      a11yState.largeText = false;
+      a11yState.contrast = false;
+      a11yState.motion = false;
+      saveA11yPreferences();
+      applyA11yPreferences();
+    }
+
+    function escapeHTML(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function createId() {
+      if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+      return `ride-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    function isAdminLoggedIn() {
+      return sessionStorage.getItem(ADMIN_SESSION_KEY) === "true";
+    }
+
+    function setAdminMode(isLoggedIn) {
+      sessionStorage.setItem(ADMIN_SESSION_KEY, isLoggedIn ? "true" : "false");
+      loginBox.classList.toggle("hidden", isLoggedIn);
+      adminPanel.classList.toggle("is-visible", isLoggedIn);
+      if (isLoggedIn) renderAdminList();
+    }
+
+    function formatDateParts(dateString) {
+      const date = new Date(dateString);
+      return {
+        day: new Intl.DateTimeFormat("en", { day: "2-digit" }).format(date),
+        month: new Intl.DateTimeFormat("en", { month: "short" }).format(date),
+        weekday: new Intl.DateTimeFormat("en", { weekday: "short" }).format(date),
+        time: new Intl.DateTimeFormat("en", { hour: "2-digit", minute: "2-digit", hour12: false }).format(date)
+      };
+    }
+
+    function getWeekLabel(dateString) {
+      const date = new Date(dateString);
+      const day = date.getDay();
+      const mondayOffset = day === 0 ? -6 : 1 - day;
+      const monday = new Date(date);
+      monday.setDate(date.getDate() + mondayOffset);
+      const sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+
+      const fmt = d => new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(d);
+      return `${fmt(monday)} — ${fmt(sunday)}`;
+    }
+
+    function sortRidesByDate(rideList) {
+      return [...rideList].sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
+
+    function filterRides() {
+      return rides.filter(ride => {
+        const matchType = state.type === "All" || ride.type === state.type;
+        const matchArea = state.area === "All" || ride.area === state.area;
+        const q = state.query.toLowerCase();
+        const matchQuery = !q || [ride.title, ride.area, ride.location, ride.pace, ride.type, ride.description, ride.tag]
+          .some(f => f.toLowerCase().includes(q));
+        return matchType && matchArea && matchQuery;
+      });
+    }
+
+    function getPillClass(type) {
+      if (type === "Guided") return "pill guided";
+      if (type === "Gravel") return "pill gravel";
+      if (["Training", "Hill Climb"].includes(type)) return "pill";
+      return "pill hot";
+    }
+
+    function createRideCard(ride) {
+      const { day, month, weekday, time } = formatDateParts(ride.date);
+      const pillClass = getPillClass(ride.type);
+
+      return `
+        <article class="event-card" data-ride-id="${escapeHTML(ride.id)}">
+          <div class="date-box" aria-label="${escapeHTML(weekday)} ${escapeHTML(day)} ${escapeHTML(month)}">
+            <span class="day">${escapeHTML(day)}</span>
+            <span class="month">${escapeHTML(month)}</span>
+          </div>
+
+          <div class="event-main">
+            <div class="event-meta">
+              <span class="${pillClass}">${escapeHTML(ride.type)}</span>
+              <span class="pill">${escapeHTML(ride.area)}</span>
+              ${ride.tag ? `<span class="pill">${escapeHTML(ride.tag)}</span>` : ""}
+            </div>
+
+            <h3 class="event-title">${escapeHTML(ride.title)}</h3>
+            <p class="event-location">${escapeHTML(ride.location)} · ${escapeHTML(time)}</p>
+            <p class="event-desc">${escapeHTML(ride.description)}</p>
+
+            <div class="event-numbers">
+              <div>
+                <strong>${escapeHTML(ride.distance)}</strong>
+                <span>Distance</span>
+              </div>
+              <div>
+                <strong>${escapeHTML(ride.elevation)}</strong>
+                <span>Elevation</span>
+              </div>
+              <div>
+                <strong>${escapeHTML(ride.pace)}</strong>
+                <span>Pace</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-actions">
+            <button class="card-btn primary" type="button" data-copy-id="${escapeHTML(ride.id)}">
+              Register interest
+            </button>
+            <button class="card-btn" type="button" data-copy-id="${escapeHTML(ride.id)}">
+              Copy name
+            </button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderFeaturedRide() {
+      const sorted = sortRidesByDate(rides);
+      const featured = sorted.find(r => r.type === "Guided") || sorted[0];
+      if (!featured) return;
+      featuredTitle.textContent = featured.title;
+      featuredDistance.textContent = featured.distance;
+      featuredElevation.textContent = featured.elevation;
+      featuredPace.textContent = featured.pace;
+    }
+
+    function renderRides() {
+      const filtered = filterRides();
+      rideCount.textContent = filtered.length;
+
+      if (!filtered.length) {
+        eventsContainer.innerHTML = "";
+        emptyState.classList.add("is-visible");
+        return;
+      }
+      emptyState.classList.remove("is-visible");
+
+      const byWeek = {};
+      sortRidesByDate(filtered).forEach(ride => {
+        const label = getWeekLabel(ride.date);
+        if (!byWeek[label]) byWeek[label] = [];
+        byWeek[label].push(ride);
+      });
+
+      eventsContainer.innerHTML = Object.entries(byWeek)
+        .map(([weekLabel, weekRides]) => `
+          <section class="week" aria-labelledby="week-${weekLabel.replace(/\s/g,'-')}">
+            <header class="week-header">
+              <h2 id="week-${weekLabel.replace(/\s/g,'-')}">${weekLabel}</h2>
+              <span>${weekRides.length} ${weekRides.length === 1 ? "ride" : "rides"}</span>
+            </header>
+            ${weekRides.map(createRideCard).join("")}
+          </section>
+        `)
+        .join("");
+
+      renderFeaturedRide();
+    }
+
+    function renderAdminList() {
+      if (!rides.length) {
+        adminRideList.innerHTML = `<div class="empty-state is-visible">No rides yet. Add one using the form.</div>`;
+        return;
+      }
+      adminRideList.innerHTML = sortRidesByDate(rides).map(ride => {
+        const date = new Date(ride.date).toLocaleString("en", {
+          year: "numeric", month: "short", day: "numeric",
+          hour: "2-digit", minute: "2-digit"
+        });
+        return `
+          <div class="admin-ride">
+            <div>
+              <strong>${escapeHTML(ride.title)}</strong>
+              <span>${escapeHTML(date)} · ${escapeHTML(ride.area)} · ${escapeHTML(ride.distance)}</span>
+              <span>${escapeHTML(ride.type)} · ${escapeHTML(ride.location)}</span>
+            </div>
+            <button class="danger-btn" type="button" data-delete-id="${escapeHTML(ride.id)}">Delete</button>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function setActiveChip(group, value) {
+      document.querySelectorAll(`[data-filter-group="${group}"] .chip`).forEach(chip => {
+        chip.classList.toggle("is-active", chip.dataset.filter === value);
+      });
+    }
+
+    function showAdminMessage(message, type = "success") {
+      adminMessage.textContent = message;
+      adminMessage.className = `admin-message field full ${type}`;
+      window.setTimeout(() => {
+        adminMessage.textContent = "";
+        adminMessage.className = "admin-message field full";
+      }, 3500);
+    }
+
+    // Filter chips
+    document.querySelectorAll("[data-filter-group]").forEach(groupElement => {
+      groupElement.addEventListener("click", event => {
+        const button = event.target.closest(".chip");
+        if (!button) return;
+        const group = groupElement.dataset.filterGroup;
+        state[group] = button.dataset.filter;
+        setActiveChip(group, state[group]);
+        renderRides();
+      });
+    });
+
+    // Quick filter links
+    document.querySelectorAll("[data-quick-filter-type]").forEach(link => {
+      link.addEventListener("click", event => {
+        event.preventDefault();
+        const type = link.dataset.quickFilterType;
+        state.type = type;
+        setActiveChip("type", type);
+        renderRides();
+        document.querySelector("#rides").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+    document.querySelectorAll("[data-quick-filter-area]").forEach(link => {
+      link.addEventListener("click", event => {
+        event.preventDefault();
+        const area = link.dataset.quickFilterArea;
+        state.area = area;
+        setActiveChip("area", area);
+        renderRides();
+        document.querySelector("#rides").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    // A11y toggles
+    document.addEventListener("click", event => {
+      const toggleButton = event.target.closest("[data-a11y-toggle]");
+      const resetButton = event.target.closest("[data-a11y-reset]");
+
+      if (toggleButton) {
+        const setting = toggleButton.dataset.a11yToggle;
+        if (setting === "largeText") a11yState.largeText = !a11yState.largeText;
+        if (setting === "contrast") a11yState.contrast = !a11yState.contrast;
+        if (setting === "motion") a11yState.motion = !a11yState.motion;
+        saveA11yPreferences();
+        applyA11yPreferences();
+      }
+
+      if (resetButton) resetA11yPreferences();
+    });
+
+    searchInput.addEventListener("input", event => {
+      state.query = event.target.value.trim();
+      renderRides();
+    });
+
+    clearSearch.addEventListener("click", () => {
+      searchInput.value = "";
+      state.query = "";
+      renderRides();
+      searchInput.focus();
+    });
+
+    // Copy ride name + register interest
+    eventsContainer.addEventListener("click", async event => {
+      const button = event.target.closest("[data-copy-id]");
+      if (!button) return;
+      const ride = rides.find(item => item.id === button.dataset.copyId);
+      if (!ride) return;
+      try {
+        await navigator.clipboard.writeText(ride.title);
+        formMessage.textContent = `Copied: ${ride.title}`;
+      } catch {
+        formMessage.textContent = `Ride: ${ride.title}`;
+      }
+    });
+
+    joinForm.addEventListener("submit", event => {
+      event.preventDefault();
+      const email = new FormData(joinForm).get("email").trim();
+      const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!isValid) {
+        formMessage.textContent = "Please enter a valid email address.";
+        return;
+      }
+      formMessage.textContent = "You're on the list. Your next Tokushima ride drop is coming soon.";
+      joinForm.reset();
+    });
+
+    accessOpen.addEventListener("click", () => accessDialog.showModal());
+    footerAccessOpen.addEventListener("click", () => accessDialog.showModal());
+    accessClose.addEventListener("click", () => { accessDialog.close(); accessOpen.focus(); });
+
+    adminOpen.addEventListener("click", () => {
+      setAdminMode(isAdminLoggedIn());
+      adminDialog.showModal();
+      if (!isAdminLoggedIn()) window.setTimeout(() => adminPassword.focus(), 50);
+    });
+    adminClose.addEventListener("click", () => { adminDialog.close(); adminOpen.focus(); });
+
+    loginForm.addEventListener("submit", event => {
+      event.preventDefault();
+      if (adminPassword.value !== ADMIN_PASSWORD) {
+        loginMessage.textContent = "Incorrect password.";
+        loginMessage.className = "admin-message error";
+        adminPassword.select();
+        return;
+      }
+      adminPassword.value = "";
+      loginMessage.textContent = "";
+      setAdminMode(true);
+    });
+
+    rideForm.addEventListener("submit", event => {
+      event.preventDefault();
+      if (!isAdminLoggedIn()) { showAdminMessage("Please log in before adding rides.", "error"); return; }
+      const formData = new FormData(rideForm);
+      const newRide = {
+        id: createId(),
+        title: formData.get("title").trim(),
+        type: formData.get("type").trim(),
+        area: formData.get("area").trim(),
+        date: formData.get("date").trim(),
+        location: formData.get("location").trim(),
+        distance: formData.get("distance").trim(),
+        elevation: formData.get("elevation").trim(),
+        pace: formData.get("pace").trim(),
+        tag: formData.get("tag").trim(),
+        description: formData.get("description").trim()
+      };
+      if (Object.values(newRide).some(v => !v)) { showAdminMessage("Please complete every field.", "error"); return; }
+      rides.push(newRide);
+      saveRides();
+      renderRides();
+      renderAdminList();
+      rideForm.reset();
+      showAdminMessage(`Added: ${newRide.title}`);
+    });
+
+    adminRideList.addEventListener("click", event => {
+      const button = event.target.closest("[data-delete-id]");
+      if (!button) return;
+      if (!isAdminLoggedIn()) { showAdminMessage("Please log in before deleting rides.", "error"); return; }
+      const ride = rides.find(item => item.id === button.dataset.deleteId);
+      if (!ride) { showAdminMessage("Ride not found.", "error"); return; }
+      if (!window.confirm(`Delete "${ride.title}"?`)) return;
+      rides = rides.filter(item => item.id !== ride.id);
+      saveRides();
+      renderRides();
+      renderAdminList();
+      showAdminMessage(`Deleted: ${ride.title}`);
+    });
+
+    adminLogout.addEventListener("click", () => {
+      setAdminMode(false);
+      sessionStorage.removeItem(ADMIN_SESSION_KEY);
+      loginMessage.textContent = "Logged out.";
+      loginMessage.className = "admin-message";
+      window.setTimeout(() => adminPassword.focus(), 50);
+    });
+
+    exportRides.addEventListener("click", () => {
+      const json = JSON.stringify(rides, null, 2);
+      const blob = new Blob([json], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "ride-tokushima-events.json";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showAdminMessage("Exported ride database as JSON.");
+    });
+
+    resetRides.addEventListener("click", () => {
+      if (!isAdminLoggedIn()) { showAdminMessage("Please log in before resetting rides.", "error"); return; }
+      if (!window.confirm("Reset all rides back to the sample Tokushima data?")) return;
+      rides = [...sampleRides];
+      saveRides();
+      renderRides();
+      renderAdminList();
+      showAdminMessage("Sample ride data restored.");
+    });
+
+    detectDeviceMode();
+    window.addEventListener("resize", detectDeviceMode);
+    window.addEventListener("orientationchange", detectDeviceMode);
+    applyA11yPreferences();
+    renderRides();
+  </script>
+</body>
+</html>
