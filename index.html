@@ -1194,6 +1194,161 @@
       .event-title { font-size: 25px; }
       .route-badge h2 { font-size: 30px; }
     }
+
+    /* ── RESOURCES SECTIONS (routes, shops, cafés) ── */
+    .resources-section {
+      padding: clamp(44px, 6vw, 90px) clamp(18px, 4vw, 54px);
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-soft);
+    }
+    .resources-section.alt { background: var(--paper); }
+
+    .resources-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(280px, 0.4fr) 1fr;
+      gap: clamp(32px, 5vw, 80px);
+      align-items: start;
+    }
+
+    .resources-head h2 {
+      margin: 0 0 14px;
+      font-size: clamp(32px, 4.5vw, 64px);
+      line-height: 0.9;
+      letter-spacing: -0.07em;
+    }
+    .resources-head p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      line-height: 1.55;
+      max-width: 400px;
+    }
+    .resources-cta { align-self: start; }
+    .resources-note {
+      align-self: end;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+    .resources-note p { margin: 0; }
+
+    /* Shop / café grid */
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .shop-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--paper-soft);
+      color: var(--ink);
+      text-decoration: none;
+      transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+    }
+    .resources-section.alt .shop-card { background: var(--paper); }
+    .shop-card:hover {
+      background: var(--indigo-1);
+      border-color: var(--indigo-3);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .shop-dist {
+      flex-shrink: 0;
+      min-width: 48px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--indigo-3);
+      letter-spacing: -0.02em;
+    }
+
+    .shop-info { min-width: 0; }
+    .shop-info.wide { flex: 1; }
+    .shop-info strong { display: block; font-size: 14px; letter-spacing: -0.02em; margin-bottom: 2px; }
+    .shop-info span { display: block; color: var(--muted); font-size: 12px; line-height: 1.4; }
+
+    .shop-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border: 1px solid rgba(50,120,160,0.3);
+      border-radius: 999px;
+      background: var(--indigo-1);
+      color: var(--indigo-4);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      padding: clamp(44px, 6vw, 90px) clamp(18px, 4vw, 54px);
+      background: var(--ink);
+      color: var(--paper-soft);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    body.a11y-contrast .contact-section { background: #000; }
+
+    .contact-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: clamp(32px, 5vw, 80px);
+      align-items: end;
+    }
+
+    .contact-inner h2 {
+      margin: 0 0 16px;
+      font-size: clamp(36px, 5.5vw, 80px);
+      line-height: 0.88;
+      letter-spacing: -0.07em;
+    }
+    .contact-inner p {
+      margin: 0 0 24px;
+      color: rgba(249,247,242,0.72);
+      line-height: 1.55;
+      max-width: 520px;
+    }
+    .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .contact-links .solid-btn { background: var(--indigo-3); border-color: var(--indigo-3); }
+    .contact-links .solid-btn:hover { background: var(--indigo-2); border-color: var(--indigo-2); }
+    .contact-links .ghost-btn { border-color: rgba(249,247,242,0.3); color: var(--paper-soft); }
+    .contact-links .ghost-btn:hover { border-color: var(--paper-soft); }
+
+    .contact-detail { text-align: right; }
+    .contact-detail .eyebrow { color: var(--indigo-2); }
+    .contact-place {
+      margin: 8px 0 0;
+      font-size: clamp(22px, 3vw, 38px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.05em;
+      color: #fff;
+    }
+
+    @media (max-width: 1080px) {
+      .resources-inner { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .contact-detail { text-align: left; }
+    }
+
+    @media (max-width: 760px) {
+      .shop-grid { grid-template-columns: 1fr; }
+      .resources-section, .contact-section { padding: 44px 18px; }
+    }
+
   </style>
 </head>
 
@@ -1218,8 +1373,9 @@
     <nav class="main-nav" aria-label="Main navigation">
       <a href="#rides">Rides</a>
       <a href="#routes">Routes</a>
+      <a href="#lbs">Bike Shops</a>
+      <a href="#cafes">Cafés</a>
       <a href="#bridge">Onaruto 2027</a>
-      <a href="#tokushima">The Prefecture</a>
       <a href="#join" class="nav-cta">Join waitlist</a>
     </nav>
 
@@ -1540,6 +1696,189 @@
       </div>
     </section>
 
+    <!-- ROUTES -->
+    <section id="routes-rwgps" class="resources-section" aria-labelledby="routes-rwgps-title">
+      <div class="resources-inner">
+        <div class="resources-head">
+          <p class="eyebrow indigo">GPX &amp; Route files</p>
+          <h2 id="routes-rwgps-title">Ride the local roads.</h2>
+          <p>A curated collection of Tokushima routes — the same roads the locals ride, plus a few quiet favourites. Load directly into your head unit via Ride with GPS.</p>
+          <a class="solid-btn resources-cta" href="https://ridewithgps.com/collections/3518450?privacy_code=GpmjkpeZBMIpn64ezB32JM0mnGR7aaAU" target="_blank" rel="noopener">Open route collection →</a>
+        </div>
+        <div class="resources-note">
+          <p>All routes are provided as-is. Ride at your own risk, respect local traffic rules, and verify conditions before heading out. Routes will grow over time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIKE SHOPS -->
+    <section id="lbs" class="resources-section alt" aria-labelledby="lbs-title">
+      <div class="resources-inner">
+        <div class="resources-head">
+          <p class="eyebrow indigo">Local bicycle shops — 自転車屋</p>
+          <h2 id="lbs-title">Where to get sorted.</h2>
+          <p>Distances from Tokushima Station. Most shops work across road, gravel, mountain, city, and more — each with its own focus and brands.</p>
+        </div>
+        <div class="shop-grid">
+          <a class="shop-card" href="https://maps.app.goo.gl/mrBegSKckrvmX7cJA" target="_blank" rel="noopener">
+            <div class="shop-dist">190m</div>
+            <div class="shop-info">
+              <strong>Dancing Dolls</strong>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/5Gn66CaDYgDrGZ23A" target="_blank" rel="noopener">
+            <div class="shop-dist">800m</div>
+            <div class="shop-info">
+              <strong>Nakanishi Cycle</strong>
+              <span class="shop-tag">English OK</span>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/sJfDz1tYTfrXkoJG8" target="_blank" rel="noopener">
+            <div class="shop-dist">1.5km</div>
+            <div class="shop-info">
+              <strong>Shiokaze Store</strong>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/i4ccmyQgJDbsUYwQ6" target="_blank" rel="noopener">
+            <div class="shop-dist">2.3km</div>
+            <div class="shop-info">
+              <strong>Rindow Bicycle</strong>
+              <span class="shop-tag">English OK</span>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/rjDKrcvradkC5iGBA" target="_blank" rel="noopener">
+            <div class="shop-dist">3.1km</div>
+            <div class="shop-info">
+              <strong>Blue Cycle Lab</strong>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/6fpKsyWRFNokrczc9" target="_blank" rel="noopener">
+            <div class="shop-dist">3.5km</div>
+            <div class="shop-info">
+              <strong>Family Ride</strong>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/mAv8BK3dZsdCRMUY7" target="_blank" rel="noopener">
+            <div class="shop-dist">6.8km</div>
+            <div class="shop-info">
+              <strong>TBE — The Bicycle Enterprise</strong>
+              <span class="shop-tag">English OK</span>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/PMuK1JTEBCfBUTgAA" target="_blank" rel="noopener">
+            <div class="shop-dist">8.2km</div>
+            <div class="shop-info">
+              <strong>Cycle Science Aizumi</strong>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/PNLznKTyVuw5naAu7" target="_blank" rel="noopener">
+            <div class="shop-dist">10.5km</div>
+            <div class="shop-info">
+              <strong>Cycle Science Komatsushima</strong>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/YY7zq4eJGkoqjPw98" target="_blank" rel="noopener">
+            <div class="shop-dist">11km</div>
+            <div class="shop-info">
+              <strong>Cycle Space UZU</strong>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/SwQ9W4zaBLsEQ3MR7" target="_blank" rel="noopener">
+            <div class="shop-dist">25km</div>
+            <div class="shop-info">
+              <strong>Hayashi Bicycle</strong>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAFES -->
+    <section id="cafes" class="resources-section" aria-labelledby="cafes-title">
+      <div class="resources-inner">
+        <div class="resources-head">
+          <p class="eyebrow indigo">Café stops — カフェ</p>
+          <h2 id="cafes-title">A good ride deserves a good stop.</h2>
+          <p>Favourite cafés across the prefecture — strong espresso, local sweets, or just a welcoming spot to park the bike.</p>
+        </div>
+        <div class="shop-grid">
+          <a class="shop-card" href="https://maps.app.goo.gl/xaW86JZG435WSh5HA" target="_blank" rel="noopener">
+            <div class="shop-info wide">
+              <strong>Wadanoya</strong>
+              <span>Traditional Tokushima sweets — Taki no Yaki Mochi</span>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/Ue7C59vuts3vpiQA8" target="_blank" rel="noopener">
+            <div class="shop-info wide">
+              <strong>292 Coffee &amp; Bake</strong>
+              <span>Great food, espresso — cortado &amp; macchiato</span>
+            </div>
+          </a>
+          <a class="shop-card" href="https://www.instagram.com/cyclecoffee_tokushima/" target="_blank" rel="noopener">
+            <div class="shop-info wide">
+              <strong>Cycle Coffee</strong>
+              <span>Check Instagram for location — usually at the Awa-Odori Visitor Center</span>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/pTTVnbpY3xTcfuHt7" target="_blank" rel="noopener">
+            <div class="shop-info wide">
+              <strong>Shiocafe</strong>
+              <span>Great lunch plates and sweet desserts — attached to Shiokaze Store</span>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/BHo9T6QcH5KPgPDL6" target="_blank" rel="noopener">
+            <div class="shop-info wide">
+              <strong>Sumiyoshi 4-chome Coffee</strong>
+              <span>Amazing breakfast plates, toast, and espresso drinks</span>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/6CVs8qoTeBR49vGX7" target="_blank" rel="noopener">
+            <div class="shop-info wide">
+              <strong>Hachio Coffee</strong>
+              <span>Coffee and treats on the way to Mount Bizan</span>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/c5JZjxiK8GomD6iC7" target="_blank" rel="noopener">
+            <div class="shop-info wide">
+              <strong>Mamechiyo Coffee Roastery</strong>
+              <span>Coffee in the heart of Kamiyama-cho</span>
+            </div>
+          </a>
+          <a class="shop-card" href="https://www.instagram.com/caffe_salotto_katsuura/" target="_blank" rel="noopener">
+            <div class="shop-info wide">
+              <strong>Salotto</strong>
+              <span>Italian café-style espresso in Katsuura — check Instagram for location</span>
+            </div>
+          </a>
+          <a class="shop-card" href="https://maps.app.goo.gl/w1CxgsXoomytNR2PA" target="_blank" rel="noopener">
+            <div class="shop-info wide">
+              <strong>Panco Cafe</strong>
+              <span>Shaved ice, coffee, and treats along the Naka River in Anan</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section" aria-labelledby="contact-title">
+      <div class="contact-inner">
+        <div>
+          <p class="eyebrow">Get in touch</p>
+          <h2 id="contact-title">Planning a ride in Tokushima?</h2>
+          <p>Curious about cycling here? Looking for a bike-friendly stay, a shop that speaks your language, or just the right espresso before the climb? Get in touch.</p>
+          <div class="contact-links">
+            <a class="solid-btn" href="mailto:sean@ridetokushima.com">Email us</a>
+            <a class="ghost-btn" href="https://instagram.com/ridetokushima" target="_blank" rel="noopener">Instagram →</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <p class="eyebrow">Based in</p>
+          <p class="contact-place">Tokushima<br>徳島県<br>Shikoku, Japan</p>
+        </div>
+      </div>
+    </section>
+
     <!-- JOIN -->
     <section id="join" class="join" aria-labelledby="join-title">
       <h2 id="join-title">Join the next roll-out.</h2>
@@ -1565,7 +1904,7 @@
       </form>
     </section>
 
-  </main>
+
 
   <footer>
     <div class="footer-main">
@@ -1573,8 +1912,9 @@
       <nav class="footer-nav" aria-label="Footer navigation">
         <a href="#rides">Rides</a>
         <a href="#routes">Routes</a>
-        <a href="#tokushima">The Prefecture</a>
-        <a href="#bridge">Onaruto 2027</a>
+        <a href="#lbs">Bike Shops</a>
+        <a href="#cafes">Cafés</a>
+        <a href="#contact">Contact</a>
         <a href="#join">Join</a>
       </nav>
       <span>Tokushima, Japan · 徳島県</span>
@@ -1591,8 +1931,8 @@
   <nav class="mobile-tabbar" aria-label="Mobile navigation">
     <a href="#top">Home</a>
     <a href="#rides">Rides</a>
-    <a href="#routes">Routes</a>
-    <a href="#join">Join</a>
+    <a href="#lbs">Shops</a>
+    <a href="#cafes">Cafés</a>
   </nav>
 
   <button
